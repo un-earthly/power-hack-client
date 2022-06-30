@@ -10,7 +10,7 @@ export default function Layout({ children }) {
             <div className="container mx-auto my-5">
                 {children}
             </div>
-            <Pagination />
+            {/* <Pagination /> */}
         </div>
     )
 }
