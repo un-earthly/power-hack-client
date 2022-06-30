@@ -1,13 +1,14 @@
 import React from 'react'
 
-export default function Pagination({pageCount}) {
+export default function Pagination({ pageCount }) {
     return (
         <div className='flex items-center justify-center'>
-            <div class="btn-group">
-                <button class="btn btn-active">1</button>
-                <button class="btn">2</button>
-                <button class="btn">3</button>
-                <button class="btn">4</button>
+            <div className="btn-group">
+                <button className="btn">1</button>
+                <button className="btn">2</button>
+                <button className="btn btn-disabled">...</button>
+                <button className="btn">99</button>
+                <button className="btn">100</button>
             </div>
         </div>
     )
