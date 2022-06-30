@@ -1,7 +1,9 @@
 import useBillings from '../hooks/useBillings'
+import useTemporaryData from '../hooks/useTemporaryData'
 import TableRow from './TableRow'
 
-export default function Table({ temporaryData, setTemporaryData }) {
+export default function Table() {
+    const [temporaryData] = useTemporaryData()
     const [billings] = useBillings()
     const tr = <tr>
         <th>Billing id</th>
