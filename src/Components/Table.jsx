@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axiosPrivate from '../api/axiosPrivate'
 
 export default function Table() {
+    const [billings, setbillings] = useState([])
+    axiosPrivate.get('https://quiet-plateau-67251.herokuapp.com/api/billing-list')
+        .then(res => console.log(res.data))
     return (
         <div className="overflow-x-auto">
             <table className="table w-full">
@@ -15,17 +19,7 @@ export default function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>Quality Control Specialist</td>
-                        <td>Blue</td>
-                        <td>Blue</td>
-                        <td className='space-x-2'>
-                            <button className="btn btn-sm">Edit</button>
-                            <button className="btn btn-sm"> Delete</button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>

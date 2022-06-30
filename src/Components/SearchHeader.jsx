@@ -6,8 +6,8 @@ export default function SearchHeader({ setTemporaryData }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [query, setQuery] = useState('')
     const addBill = data => {
-        // setTemporaryData(data)
-        axiosPrivate.post('https://quiet-plateau-67251.herokuapp.com/api/add-billing').then(res => console.log(res.data))
+        setTemporaryData(data)
+        axiosPrivate.post('https://quiet-plateau-67251.herokuapp.com/api/add-billing', data).then(res => console.log(res.data))
         reset()
     };
     const findQuery = () => {
@@ -55,7 +55,7 @@ export default function SearchHeader({ setTemporaryData }) {
                                         required: true,
                                         pattern: {
                                             value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                                            message: 'Please Enter A Valid '
+                                            message: 'Please Enter A Valid Email'
                                         }
                                     })
                             }
