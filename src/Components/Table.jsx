@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axiosPrivate from '../api/axiosPrivate'
+import useBillings from '../hooks/useBillings'
 import TableRow from './TableRow'
 
-export default function Table({ temporaryData, setTemporaryData, searchedData }) {
-    const [billings, setBillings] = useState([])
-    useEffect(() => {
-        axiosPrivate.get('https://quiet-plateau-67251.herokuapp.com/api/billing-list')
-            .then(res => setBillings(res.data) & setTemporaryData(null))
-    }, [billings])
+export default function Table({ temporaryData, setTemporaryData }) {
+    const [billings] = useBillings()
     const tr = <tr>
         <th>Billing id</th>
         <th>full Name</th>
@@ -19,34 +14,13 @@ export default function Table({ temporaryData, setTemporaryData, searchedData })
     return (
         <div className="overflow-x-auto">
 
-            {
-                searchedData.length > 0 && <div className='mx-auto container items-center justify-center flex flex-col my-10'>
-                    <h1 className='text-3xl text-success'>Search results</h1>
-                    <div className="overflow-x-auto">
-                        <table className="table table-compact w-full">
-                            <thead>
-                                {tr}
-                            </thead>
-                            <tbody>
-                                {
-                                    searchedData.map(sd =>
-                                        <TableRow key={sd._id} data={sd} />
-                                    )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            }
-
             <table className="table w-full">
                 <thead>
                     {tr}
                 </thead>
                 <tbody>
                     {
-                        billings.map(b => <TableRow key={b._id} data={b} />
-                        )
+                        billings.map(b => <TableRow key={b._id} data={b} />)
                     }
                     {
                         temporaryData && <tr>

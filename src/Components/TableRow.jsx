@@ -1,13 +1,13 @@
 import React from 'react'
 import axiosPrivate from '../api/axiosPrivate'
 
-export default function TableRow({ data, totalPaid }) {
+export default function TableRow({ data }) {
     const modifyBilling = id => {
-        axiosPrivate.patch('https://quiet-plateau-67251.herokuapp.com/api/billing/' + id)
+        axiosPrivate.patch('http://localhost/api/billing/' + id)
             .then(res => console.log(res.data))
     }
     const deleteBilling = id => {
-        axiosPrivate.delete('https://quiet-plateau-67251.herokuapp.com/api/billing/' + id)
+        axiosPrivate.delete('http://localhost/api/billing/' + id)
             .then(res => console.log(res.data))
     }
     const { name, email, phone, _id: id, bill } = data
