@@ -6,9 +6,13 @@ import Error from "./Components/Error";
 import RequireAuth from "./Components/RequireAuth";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet-async";
 export default function App() {
   return (
     <>
+      <Helmet>
+        <title>Home - Power Hack</title>
+      </Helmet>
       <Routes>
         <Route path="/" element={
           <RequireAuth>

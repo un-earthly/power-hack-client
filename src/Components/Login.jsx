@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 export default function Login() {
+    <Helmet>
+        <title>Login Now - Power Hack</title>
+    </Helmet>
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
