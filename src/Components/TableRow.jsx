@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axiosPrivate from '../api/axiosPrivate'
-import EditBillingModal from './EditBillingModal'
+import useModalControllers from '../hooks/useModalControllers';
+import Form from './Form';
+import MyModal from './Modal';
 export default function TableRow({ data }) {
-
+    const [billingId, setBillingId] = useState('');
+    const modifyBilling = formData => {
+        axiosPrivate.patch('http://localhost/api/update-billing/' + billingId, formData)
+            .then(res => console.log(res.data))
+    }
     const deleteBilling = id => {
         axiosPrivate.delete('http://localhost/api/delete-billing/' + id)
             .then(res => console.log(res.data))
     }
-    const { name, email, phone, _id: id, bill } = data
+    const { name, email, phone, _id: id, bill } = data;
+    const [modalIsOpen, setIsOpen] = useModalControllers();
+    function openModal() {
+        setIsOpen(true);
+    }
     return (
         <>
             <tr>
@@ -17,11 +27,11 @@ export default function TableRow({ data }) {
                 <td>{phone}</td>
                 <td>{bill}</td>
                 <td className='space-x-2'>
-                    <label htmlFor="updateModal" className="btn btn-sm">Edit</label>
+                    <button onClick={() => openModal() & setBillingId(id)} className="btn btn-sm">Edit</button>
                     <button onClick={() => deleteBilling(id)} className="btn btn-sm"> Delete</button>
                 </td>
             </tr>
-            <EditBillingModal id={id} />
+            <MyModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} billingId={billingId} ><Form handler={modifyBilling} /></MyModal>
         </>
     )
 }

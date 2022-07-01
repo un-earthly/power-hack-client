@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import axiosPrivate from '../api/axiosPrivate';
-import BillingModal from './BillingModal';
+import useModalControllers from '../hooks/useModalControllers';
+import Form from './Form';
+import MyModal from './Modal';
+import useTemporaryData from '../hooks/useTemporaryData';
 export default function SearchHeader() {
     const [query, setQuery] = useState('')
+    const [modalIsOpen, setIsOpen] = useModalControllers()
     const findQuery = () => {
         const isEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(query)
         const isPhone = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(query)
@@ -11,6 +15,15 @@ export default function SearchHeader() {
                 : { "name": query }
         axiosPrivate.post(`http://localhost/api/billing-list`, toQuery)
             .then(res => console.log(res.data))
+    }
+    const [, setTemporaryData] = useTemporaryData()
+    const addBill = data => {
+        setTemporaryData(data)
+        axiosPrivate.post('http://localhost/api/add-billing', data)
+            .then(res => console.log(res.data));
+    };
+    function openModal() {
+        setIsOpen(true);
     }
 
 
@@ -29,8 +42,8 @@ export default function SearchHeader() {
                 </div>
 
                 <div className="flex-none gap-2">
-                    <label htmlFor="billingModal" className="btn modal-button">Add new bill</label>
-                    <BillingModal />
+                    <button onClick={openModal} htmlFor="billingModal" className="btn modal-button">Add new bill</button>
+                    <MyModal modalIsOpen={modalIsOpen} billingId={"Adding New Biling Info"} setIsOpen={setIsOpen}><Form handler={addBill} /></MyModal>
                 </div>
             </div>
 
