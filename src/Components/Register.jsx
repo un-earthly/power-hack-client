@@ -18,7 +18,7 @@ export default function Login() {
     const onSubmit = data => {
         setLoading(true)
         reset()
-        axios.post('http://localhost/api/register', data)
+        axios.post('https://quiet-plateau-67251.herokuapp.com/api/register', data)
             .then(res => {
                 setLoading(false)
                 const token = res.data.token

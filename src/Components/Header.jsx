@@ -13,7 +13,7 @@ export default function Header({ billings }) {
         navigate('/login')
     }
     useEffect(() => {
-        axiosPrivate.get('http://localhost/api/total-paid')
+        axiosPrivate.get('https://quiet-plateau-67251.herokuapp.com/api/total-paid')
             .then(res => setTotal(res.data.total))
     }, [billings])
 

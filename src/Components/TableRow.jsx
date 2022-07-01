@@ -6,11 +6,11 @@ import MyModal from './Modal';
 export default function TableRow({ data }) {
     const [billingId, setBillingId] = useState('');
     const modifyBilling = formData => {
-        axiosPrivate.patch('http://localhost/api/update-billing/' + billingId, formData)
+        axiosPrivate.patch('https://quiet-plateau-67251.herokuapp.com/api/update-billing/' + billingId, formData)
             .then(res => console.log(res.data))
     }
     const deleteBilling = id => {
-        axiosPrivate.delete('http://localhost/api/delete-billing/' + id)
+        axiosPrivate.delete('https://quiet-plateau-67251.herokuapp.com/api/delete-billing/' + id)
             .then(res => console.log(res.data))
     }
     const { name, email, phone, _id: id, bill } = data;
@@ -31,7 +31,7 @@ export default function TableRow({ data }) {
                     <button onClick={() => deleteBilling(id)} className="btn btn-sm"> Delete</button>
                 </td>
             </tr>
-            <MyModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} billingId={billingId} ><Form handler={modifyBilling} /></MyModal>
+            <MyModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} tagLine={billingId} ><Form handler={modifyBilling} /></MyModal>
         </>
     )
 }

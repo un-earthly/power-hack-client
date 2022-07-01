@@ -8,11 +8,11 @@ export default function Table({ billings, setBillings }) {
     const pageCount = Math.ceil(TotalDocCount / 10);
     const [temporaryData, setTemporaryData] = useTemporaryData()
     useEffect(() => {
-        axiosPrivate.get(`http://localhost/api/billing-list?pageNum=${pageNum}`)
+        axiosPrivate.get(`https://quiet-plateau-67251.herokuapp.com/api/billing-list?pageNum=${pageNum}`)
             .then(res => setBillings(res.data) & setTemporaryData(null))
     }, [billings, pageNum, setBillings, setTemporaryData])
     useEffect(() => {
-        axiosPrivate.get('http://localhost/api/total-billings-docs')
+        axiosPrivate.get('https://quiet-plateau-67251.herokuapp.com/api/total-billings-docs')
             .then(res => setTotalDocCount(res.data.count))
     }, [billings])
     const tr = <tr>
