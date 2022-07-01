@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 export default function Login() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [error, setError] = useState(false)
@@ -65,6 +66,7 @@ export default function Login() {
                         </div>
                     }
                     <button className='btn btn-success px-8 w-full'>Submit</button>
+                    <div>New Here? <Link to='/register' className='text-success font-semibold'>Register Now.</Link></div>
                 </div>
             </form>
 
