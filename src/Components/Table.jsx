@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react'
 import useTemporaryData from '../hooks/useTemporaryData'
 import TableRow from './TableRow'
 import axiosPrivate from '../api/axiosPrivate'
-export default function Table() {
-    const [billings, setBillings] = useState([])
+export default function Table({ billings, setBillings }) {
     const [pageNum, setPageNum] = useState(0)
     const [TotalDocCount, setTotalDocCount] = useState(0);
     const pageCount = Math.ceil(TotalDocCount / 10);
-    const [temporaryData] = useTemporaryData()
-    const [, setTemporaryData] = useTemporaryData()
+    const [temporaryData, setTemporaryData] = useTemporaryData()
     useEffect(() => {
         axiosPrivate.get(`http://localhost/api/billing-list?pageNum=${pageNum}`)
             .then(res => setBillings(res.data) & setTemporaryData(null))

@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
-import axiosPrivate from '../api/axiosPrivate'
+import { useEffect, useState } from "react";
+import axiosPrivate from "../api/axiosPrivate";
 
-export default function Header() {
-    const [total, setTotal] = useState(0)
+export default function Header({ billings }) {
+    const [total, setTotal] = useState(0);
     useEffect(() => {
-        axiosPrivate.get('http://localhost/api/total-biling-price')
+        axiosPrivate.get('http://localhost/api/total-paid')
             .then(res => setTotal(res.data.total))
-    }, [total])
+    }, [billings])
+
     return (
         <nav className='flex items-center justify-between mx-auto py-3 px-20 bg-base-300'>
             <h1 className="text-lg font-bold uppercase">Power <span className="text-info">Hack</span></h1>
