@@ -1,10 +1,22 @@
-import useBillings from '../hooks/useBillings'
+import { useState, useEffect } from 'react'
 import useTemporaryData from '../hooks/useTemporaryData'
 import TableRow from './TableRow'
-
+import axiosPrivate from '../api/axiosPrivate'
 export default function Table() {
+    const [billings, setBillings] = useState([])
+    const [pageNum, setPageNum] = useState(0)
+    const [TotalDocCount, setTotalDocCount] = useState(0);
+    const pageCount = Math.ceil(TotalDocCount / 10);
     const [temporaryData] = useTemporaryData()
-    const [billings] = useBillings()
+    const [, setTemporaryData] = useTemporaryData()
+    useEffect(() => {
+        axiosPrivate.get(`http://localhost/api/billing-list?pageNum=${pageNum}`)
+            .then(res => setBillings(res.data) & setTemporaryData(null))
+    }, [billings, pageNum, setBillings, setTemporaryData])
+    useEffect(() => {
+        axiosPrivate.get('http://localhost/api/total-billings-docs')
+            .then(res => setTotalDocCount(res.data.count))
+    }, [billings])
     const tr = <tr>
         <th>Billing id</th>
         <th>full Name</th>
@@ -13,6 +25,7 @@ export default function Table() {
         <th>paid amount</th>
         <th>action</th>
     </tr>
+
     return (
         <div className="overflow-x-auto">
 
@@ -40,6 +53,14 @@ export default function Table() {
 
                 </tbody>
             </table>
+
+            <div className='flex items-center justify-center mt-10'>
+                <div className="btn-group">
+                    {
+                        [...Array(pageCount).keys()].map(page => <button key={page} className={`btn ${pageNum === page ? 'bg-gray-900' : ''}`} onClick={() => { setPageNum(page) }}>{(page + 1)}</button>)
+                    }
+                </div>
+            </div>
         </div>
     )
 }
