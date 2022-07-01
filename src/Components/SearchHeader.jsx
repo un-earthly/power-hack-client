@@ -31,12 +31,12 @@ export default function SearchHeader() {
         <div>
             <div className="navbar bg-base-200 mb-5">
                 <div className="flex-1">
-                    <p className="btn btn-ghost normal-case text-xl">Billings</p>
+                    <p className="btn btn-ghost normal-case text-xl hidden md:inline-flex">Billings</p>
                     <div className="form-control">
                         <input value={query} onChange={e => setQuery(e.target.value)}
                             onKeyUp={e => e.key === 'Enter' && findQuery()}
                             type="text" placeholder="i.e (fullname, +8801234567891 | user@gmail.com)"
-                            className="input w-96 input-bordered focus:outline-none" />
+                            className="input lg:w-96 input-bordered focus:outline-none" />
 
                     </div>
                 </div>
